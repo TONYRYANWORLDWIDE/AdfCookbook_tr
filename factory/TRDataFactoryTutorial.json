@@ -1,0 +1,9 @@
+{
+	"name": "TRDataFactoryTutorial",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "dcac066d-6fb0-4b9a-9ce7-f7ab20389c0a",
+		"tenantId": "f6660b41-518a-481e-ad16-b65893c24283"
+	}
+}

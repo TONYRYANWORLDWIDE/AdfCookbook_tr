@@ -1,0 +1,24 @@
+{
+	"name": "trigger_blob_added",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_orchestration_recipe_7",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/data/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/aacd7284-ec37-475a-935d-bcec484ebabf/resourceGroups/TRADF/providers/Microsoft.Storage/storageAccounts/adfstoragetr",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

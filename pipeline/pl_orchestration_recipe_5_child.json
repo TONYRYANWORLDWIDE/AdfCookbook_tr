@@ -1,0 +1,84 @@
+{
+	"name": "pl_orchestration_recipe_5_child",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Email Recipients",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT * FROM adf.EmailRecipient",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSQLTables",
+						"type": "DatasetReference",
+						"parameters": {
+							"tableName": "EmailRecipient"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Email Loop",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Email Recipients",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Email Recipients').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Web1",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-06.eastus.logic.azure.com:443/workflows/bbd47c3431564a39b8e950e6b779fbc2/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=copFDOZUV7WDW1o514K8ZhiL2y0w974-6euAqmkOrpY",
+								"method": "POST",
+								"headers": {
+									"Content-Type": "application/json"
+								},
+								"body": {
+									"value": "@json(concat('{\"emailAddress\": \"', item().emailAddress, '\", \"subject\": \"ADF Pipeline Failure\", \"messageBody\": \"ADF Pipeline Failed\"}'))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-08-19T21:20:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

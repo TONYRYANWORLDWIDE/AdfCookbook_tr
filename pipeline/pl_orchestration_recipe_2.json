@@ -1,0 +1,91 @@
+{
+	"name": "pl_orchestration_recipe_2",
+	"properties": {
+		"activities": [
+			{
+				"name": "CsvDataFolder Metadata",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "CsvDataFolder",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"itemName",
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Insert Metadata",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CsvDataFolder Metadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[adf].[InsertFileMetadata]",
+					"storedProcedureParameters": {
+						"FileName": {
+							"value": {
+								"value": "@activity('CsvDataFolder Metadata').output.itemname",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ModifiedAt": {
+							"value": {
+								"value": "@convertfromutc(activity('CsvDataFolder Metadata').output.lastmodified,'Eastern Standard Time')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"UpdatedAt": {
+							"value": {
+								"value": "@convertfromutc(utcnow(),'Eastern Standard Time')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-08-18T20:45:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
