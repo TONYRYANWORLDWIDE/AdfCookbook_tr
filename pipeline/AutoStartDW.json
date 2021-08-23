@@ -1,0 +1,29 @@
+{
+	"name": "AutoStartDW",
+	"properties": {
+		"activities": [
+			{
+				"name": "startDW",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/aacd7284-ec37-475a-935d-bcec484ebabf/resourceGroups/TRADF/providers/Microsoft.Sql/servers/adfcookbookworkspace/databases/trpool/resume?api-version=2019-06-01-preview",
+					"method": "POST",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.core.windows.net"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
