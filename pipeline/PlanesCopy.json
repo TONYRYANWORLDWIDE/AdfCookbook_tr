@@ -1,5 +1,5 @@
 {
-	"name": "CopyPipeline_0g4",
+	"name": "PlanesCopy",
 	"properties": {
 		"activities": [
 			{
@@ -97,7 +97,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_0g4",
+						"referenceName": "PlanesTable",
 						"type": "DatasetReference"
 					}
 				]

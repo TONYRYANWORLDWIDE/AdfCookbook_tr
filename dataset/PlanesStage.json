@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_bqp",
+	"name": "PlanesStage",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage2",

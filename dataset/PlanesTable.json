@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_0g4",
+	"name": "PlanesTable",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSynapseAnalytics1",

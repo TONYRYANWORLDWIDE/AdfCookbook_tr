@@ -1,5 +1,5 @@
 {
-	"name": "CopyPipeline_bqp",
+	"name": "PlanesCopyStage",
 	"properties": {
 		"activities": [
 			{
@@ -52,7 +52,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_bqp",
+						"referenceName": "PlanesStage",
 						"type": "DatasetReference"
 					}
 				]
