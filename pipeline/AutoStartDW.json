@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://management.azure.com/subscriptions/aacd7284-ec37-475a-935d-bcec484ebabf/resourceGroups/TRADF/providers/Microsoft.Sql/servers/adfcookbookworkspace/databases/trpool/resume?api-version=2019-06-01-preview",
+					"url": "https://management.azure.com/subscriptions/aacd7284-ec37-475a-935d-bcec484ebabf/resourceGroups/TRADF/providers/Microsoft.Sql/workspaces/adfcookbookworkspace/databases/trpool/resume?api-version=2019-06-01-preview",
 					"method": "POST",
 					"authentication": {
 						"type": "MSI",
